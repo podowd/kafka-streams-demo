@@ -1,0 +1,30 @@
+spring.cloud.stream:
+  bindings:
+    process-in-0:
+      destination: pool-user-shares
+    process-out-0:
+      destination: pool-1min-user-hashrate
+  kafka:
+    streams:
+      binder:
+        brokers: localhost
+        defaultBrokerPort: 443
+        applicationId: pool-user-hashrate
+        configuration:
+          commit.interval.ms: 100
+          default:
+            key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+            value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          security.protocol: SSL
+          ssl.truststore.location: <location of jks file>/truststore.jks
+          ssl.truststore.password: <password>
+          ssl.truststore.type: JKS
+          ssl:
+            endpoint:
+              identification:
+                algorithm:
+
+#Enable logging to debug for spring kafka config
+logging:
+  level:
+    org.springframework.kafka.config: debug
